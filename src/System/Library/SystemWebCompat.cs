@@ -146,6 +146,7 @@ namespace System.Web
     {
         public HttpRequest()
         {
+            ApplicationPath = "/";
             ServerVariables["SERVER_PROTOCOL"] = "HTTP/1.1";
             ServerVariables["SERVER_NAME"] = "localhost";
             ServerVariables["SERVER_PORT"] = "80";
@@ -154,7 +155,7 @@ namespace System.Web
             ServerVariables["REMOTE_ADDR"] = "127.0.0.1";
         }
 
-        public string ApplicationPath { get; set; } = "/";
+        public string ApplicationPath { get; set; }
         public NameValueCollection QueryString { get; } = new NameValueCollection();
         public NameValueCollection Form { get; } = new NameValueCollection();
         public NameValueCollection ServerVariables { get; } = new NameValueCollection();

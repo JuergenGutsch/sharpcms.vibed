@@ -18,7 +18,7 @@ foreach (string assemblyPath in Directory.GetFiles(AppContext.BaseDirectory, "*.
         continue;
     }
 
-    string destinationPath = Path.Combine(legacyBinPath, Path.GetFileName(assemblyPath));
+    string destinationPath = Path.Combine(legacyBinPath, assemblyName);
     File.Copy(assemblyPath, destinationPath, true);
 }
 
