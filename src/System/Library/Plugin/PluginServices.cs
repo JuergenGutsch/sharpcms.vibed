@@ -116,13 +116,7 @@ namespace Sharpcms.Library.Plugin
                 //Go through all the files in the plugin directory
                 foreach (string fileOn in Directory.GetFiles(searchPath, "Sharpcms.Providers.*.dll"))
                 {
-                    FileInfo file = new FileInfo(fileOn);
-
-                    // Preliminary check, must be .dll
-                    if (file.Extension.Equals(".dll"))
-                    {
-                        AddPlugin(fileOn, process); //Add the 'plugin'
-                    }
+                    AddPlugin(fileOn, process); //Add the 'plugin'
                 }
             }
             catch (Exception exception)
