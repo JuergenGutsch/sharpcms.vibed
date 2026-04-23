@@ -6,9 +6,9 @@ namespace Sharpcms.Core
 {
     public static class SharpcmsEndpointRouteBuilderExtensions
     {
-        public static RouteHandlerBuilder MapSharpcms(this IEndpointRouteBuilder app)
+        public static RouteHandlerBuilder MapSharpcms(this IEndpointRouteBuilder endpoints)
         {
-            return app.MapFallback(() => Results.Text(Core.Send(), "text/html"));
+            return endpoints.MapFallback(() => Results.Text(Core.Send(), "text/html"));
         }
     }
 }
