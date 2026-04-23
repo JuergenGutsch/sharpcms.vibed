@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Routing;
 namespace Sharpcms.Core
 {
     /// <summary>
-    /// Provides endpoint routing extensions for mapping sharpcms responses.
+    /// Provides endpoint routing extensions for mapping Sharpcms responses.
     /// </summary>
     public static class SharpcmsEndpointRouteBuilderExtensions
     {
         /// <summary>
-        /// Maps the sharpcms fallback endpoint.
+        /// Maps the Sharpcms fallback endpoint.
         /// </summary>
         /// <param name="builder">The endpoint route builder.</param>
         /// <returns>The mapped fallback route handler.</returns>
