@@ -105,8 +105,13 @@ namespace Sharpcms.Library.Plugin
             //First empty the collection, we're reloading them all
             _colAvailablePlugins.Clear();
 
+            if (!Directory.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory;
+            }
+
             //Go through all the files in the plugin directory
-            foreach (string fileOn in Directory.GetFiles(path))
+            foreach (string fileOn in Directory.GetFiles(path, "Sharpcms.Providers.*.dll"))
             {
                 FileInfo file = new FileInfo(fileOn);
 
