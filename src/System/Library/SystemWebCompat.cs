@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading;
 
 namespace System.Web
@@ -143,7 +144,18 @@ namespace System.Web
 
     public class HttpRequest
     {
-        public string ApplicationPath { get; set; } = string.Empty;
+        public HttpRequest()
+        {
+            ApplicationPath = "/";
+            ServerVariables["SERVER_PROTOCOL"] = "HTTP/1.1";
+            ServerVariables["SERVER_NAME"] = "localhost";
+            ServerVariables["SERVER_PORT"] = "80";
+            ServerVariables["HTTP_REFERER"] = string.Empty;
+            ServerVariables["HTTP_USER_AGENT"] = string.Empty;
+            ServerVariables["REMOTE_ADDR"] = "127.0.0.1";
+        }
+
+        public string ApplicationPath { get; set; }
         public NameValueCollection QueryString { get; } = new NameValueCollection();
         public NameValueCollection Form { get; } = new NameValueCollection();
         public NameValueCollection ServerVariables { get; } = new NameValueCollection();
@@ -175,24 +187,42 @@ namespace System.Web
 
     public class HttpResponse
     {
+        private readonly Dictionary<string, string> _headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly StringBuilder _body = new StringBuilder();
+
         public HttpCookieCollection Cookies { get; } = new HttpCookieCollection();
         public HttpCachePolicy Cache { get; } = new HttpCachePolicy();
         public string RedirectLocation { get; private set; }
+        public string Body => _body.ToString();
+        public IReadOnlyDictionary<string, string> Headers => _headers;
 
         public void AddHeader(string name, string value)
         {
+            if (!string.IsNullOrEmpty(name))
+            {
+                _headers[name] = value;
+            }
         }
 
         public void Write(string value)
         {
+            if (value != null)
+            {
+                _body.Append(value);
+            }
         }
 
         public void WriteFile(string filename)
         {
+            if (File.Exists(filename))
+            {
+                _body.Append(File.ReadAllText(filename));
+            }
         }
 
         public void Clear()
         {
+            _body.Clear();
         }
 
         public void Flush()

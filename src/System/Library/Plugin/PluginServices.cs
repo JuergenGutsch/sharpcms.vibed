@@ -105,16 +105,22 @@ namespace Sharpcms.Library.Plugin
             //First empty the collection, we're reloading them all
             _colAvailablePlugins.Clear();
 
-            //Go through all the files in the plugin directory
-            foreach (string fileOn in Directory.GetFiles(path))
+            if (!Directory.Exists(path))
             {
-                FileInfo file = new FileInfo(fileOn);
+                throw new DirectoryNotFoundException(string.Format("Plugin directory does not exist: {0}", path));
+            }
 
-                // Preliminary check, must be .dll
-                if (file.Extension.Equals(".dll"))
+            try
+            {
+                //Go through all the files in the plugin directory
+                foreach (string fileOn in Directory.GetFiles(path, "Sharpcms.Providers.*.dll"))
                 {
                     AddPlugin(fileOn, process); //Add the 'plugin'
                 }
+            }
+            catch (Exception exception)
+            {
+                throw new IOException(string.Format("Failed to enumerate plugin assemblies in '{0}'.", path), exception);
             }
         }
 

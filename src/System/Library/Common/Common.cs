@@ -62,7 +62,14 @@ namespace Sharpcms.Library.Common
 
             for (int i = 1; i < paths.Length; i++)
             {
-                combinedPath = i == 1 ? Path.Combine(paths[i - 1], paths[i]) : Path.Combine(combinedPath, paths[i]);
+                string left = (i == 1 ? paths[i - 1] : combinedPath)
+                    .Replace('/', Path.DirectorySeparatorChar)
+                    .Replace('\\', Path.DirectorySeparatorChar);
+                string right = paths[i]
+                    .Replace('/', Path.DirectorySeparatorChar)
+                    .Replace('\\', Path.DirectorySeparatorChar);
+
+                combinedPath = Path.Combine(left, right);
             }
 
             return combinedPath;
@@ -71,12 +78,12 @@ namespace Sharpcms.Library.Common
         public static string CleanToSafeString(string dirtyString)
         {
             // ToDo: quick hack to handle Danish characters (should be more generic)
-            dirtyString = dirtyString.Replace("æ", "ae").Replace("ø", "oe").Replace("å", "aa");
-            dirtyString = dirtyString.Replace("Æ", "Ae").Replace("Ø", "Oe").Replace("Å", "Aa");
-            dirtyString = dirtyString.Replace("è", "e").Replace("é", "e").Replace("à", "a");
-            dirtyString = dirtyString.Replace("È", "E").Replace("É", "E").Replace("À", "A");
-            dirtyString = dirtyString.Replace("ä", "ae").Replace("ö", "oe").Replace("ü", "ue");
-            dirtyString = dirtyString.Replace("Ä", "Ae").Replace("Ö", "Oe").Replace("Ü", "Ue");
+            dirtyString = dirtyString.Replace("ï¿½", "ae").Replace("ï¿½", "oe").Replace("ï¿½", "aa");
+            dirtyString = dirtyString.Replace("ï¿½", "Ae").Replace("ï¿½", "Oe").Replace("ï¿½", "Aa");
+            dirtyString = dirtyString.Replace("ï¿½", "e").Replace("ï¿½", "e").Replace("ï¿½", "a");
+            dirtyString = dirtyString.Replace("ï¿½", "E").Replace("ï¿½", "E").Replace("ï¿½", "A");
+            dirtyString = dirtyString.Replace("ï¿½", "ae").Replace("ï¿½", "oe").Replace("ï¿½", "ue");
+            dirtyString = dirtyString.Replace("ï¿½", "Ae").Replace("ï¿½", "Oe").Replace("ï¿½", "Ue");
 
             // Trim .'s
             dirtyString = dirtyString.Trim('.').Trim(' ').Trim('.');

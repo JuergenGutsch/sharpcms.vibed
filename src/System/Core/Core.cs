@@ -13,6 +13,14 @@ namespace Sharpcms.Core
 {
     public static class Core
     {
+        public static string Send()
+        {
+            Page httpPage = new Page();
+            httpPage.Request.QueryString["event_xml"] = "true";
+            Send(httpPage);
+            return httpPage.Response.Body;
+        }
+
         public static void Send(Page httpPage)
         {
             PrepareConfiguration(httpPage);

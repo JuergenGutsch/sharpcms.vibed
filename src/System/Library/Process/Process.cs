@@ -36,7 +36,7 @@ namespace Sharpcms.Library.Process
             HttpPage = httpPage;
             XmlData = new XmlDocument();
 
-            Plugins.FindPlugins(this, Common.Common.CombinePaths(Root, "Bin"));
+            Plugins.FindPlugins(this);
 
             XmlNode xmlNode = XmlData.CreateElement("data");
             XmlData.AppendChild(xmlNode);

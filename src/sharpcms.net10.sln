@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PluginInterfaces", "PluginI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcms.PluginInterface", "System\PluginInterfaces\Sharpcms.PluginInterface.csproj", "{3BE06F75-F020-48AC-A861-B28E6153CA42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cleansite", "cleansite\cleansite.csproj", "{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,18 @@ Global
 		{3BE06F75-F020-48AC-A861-B28E6153CA42}.Release|x64.Build.0 = Release|Any CPU
 		{3BE06F75-F020-48AC-A861-B28E6153CA42}.Release|x86.ActiveCfg = Release|Any CPU
 		{3BE06F75-F020-48AC-A861-B28E6153CA42}.Release|x86.Build.0 = Release|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Debug|x64.Build.0 = Debug|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Debug|x86.Build.0 = Debug|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Release|x64.ActiveCfg = Release|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Release|x64.Build.0 = Release|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Release|x86.ActiveCfg = Release|Any CPU
+		{3279DC0F-EA1A-4AB8-A05F-D0F4F71CAEEA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

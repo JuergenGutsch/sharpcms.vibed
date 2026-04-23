@@ -1,5 +1,6 @@
 // sharpcms is licensed under the open source license GPL - GNU General Public License.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,6 +11,19 @@ namespace Sharpcms.Library.Common
 {
     public static class CommonXml
     {
+        private class CrossPlatformXmlUrlResolver : XmlUrlResolver
+        {
+            public override Uri ResolveUri(Uri baseUri, string relativeUri)
+            {
+                if (!string.IsNullOrEmpty(relativeUri))
+                {
+                    relativeUri = relativeUri.Replace('\\', '/');
+                }
+
+                return base.ResolveUri(baseUri, relativeUri);
+            }
+        }
+
         public static string TransformXsl(string xsl, XmlDocument document, Cache cache)
         {
             XslCompiledTransform transform = GetTransform(xsl, cache);
@@ -128,7 +142,7 @@ namespace Sharpcms.Library.Common
             XslCompiledTransform transform = new XslCompiledTransform(true);
 
             XsltSettings xsltSettings = new XsltSettings(true, true);
-            transform.Load(xsl, xsltSettings, new XmlUrlResolver());
+            transform.Load(xsl, xsltSettings, new CrossPlatformXmlUrlResolver());
 
             cache[cacheKey, fileDependency] = transform;
 
