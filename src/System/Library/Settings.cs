@@ -8,7 +8,7 @@ namespace Sharpcms.Library
 {
     public class Settings
     {
-        private const string CustomPath = @"Custom\App_Data\CustomSettings.xml";
+        private const string CustomPath = "Custom/App_Data/CustomSettings.xml";
         private static Settings _defaultInstance;
         private readonly XmlDocument _combinedSettings;
         private readonly string _customFullPath;
@@ -95,7 +95,11 @@ namespace Sharpcms.Library
             {
                 relativePath = relativePath.Substring(2);
 
-                convertedPath = Common.Common.CombinePaths(RootPath, relativePath.Replace('/', '\\'));
+                convertedPath = Common.Common.CombinePaths(
+                    RootPath,
+                    relativePath
+                        .Replace('/', Path.DirectorySeparatorChar)
+                        .Replace('\\', Path.DirectorySeparatorChar));
             }
 
             return convertedPath;
