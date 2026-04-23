@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Text;
+using System.Threading;
 
 namespace System.Web
 {
@@ -15,7 +16,7 @@ namespace System.Web
 
     public class HttpApplicationState
     {
-        private readonly Dictionary<string, object> _values = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        private readonly ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
         public object this[string name]
         {
@@ -33,7 +34,7 @@ namespace System.Web
 
     public class HttpSessionState
     {
-        private readonly Dictionary<string, object> _values = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        private readonly ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
         public object this[string name]
         {
@@ -118,15 +119,11 @@ namespace System.Web
     {
         public string FileName { get; set; } = string.Empty;
         public int ContentLength { get; set; }
+        public byte[] Content { get; set; } = Array.Empty<byte>();
 
         public void SaveAs(string filename)
         {
-            if (!File.Exists(filename))
-            {
-                using (File.Create(filename))
-                {
-                }
-            }
+            File.WriteAllBytes(filename, Content);
         }
     }
 
@@ -248,7 +245,19 @@ namespace System.Web
 
     public class HttpContext
     {
-        public static HttpContext Current { get; set; } = new HttpContext();
+        private static readonly AsyncLocal<HttpContext> CurrentContext = new AsyncLocal<HttpContext>();
+
+        public static HttpContext Current
+        {
+            get
+            {
+                return CurrentContext.Value ?? (CurrentContext.Value = new HttpContext());
+            }
+            set
+            {
+                CurrentContext.Value = value;
+            }
+        }
 
         public HttpContext()
             : this(new HttpRequest(), new HttpResponse(), new HttpServerUtility())
